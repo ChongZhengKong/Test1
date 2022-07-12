@@ -53,8 +53,6 @@ app.controller('myCtrl', function ($scope) {
     };
 
     //update price
-    $scope.koneCount = 0;
-    $scope.ironhideCount = 0;
     $scope.ironhidePayCount = 0;
 
     $scope.updatePrice = function () {
@@ -68,16 +66,14 @@ app.controller('myCtrl', function ($scope) {
             for (var i = 0; i < $scope.ShoppingCart.length; i++) {
 
                 if ($scope.ShoppingCart[i].id == 1) {
-                    $scope.koneCount++;
-                    if ($scope.koneCount > 2) {
+                    if ($scope.ShoppingCart[i].count > 2) {
                         $scope.isKoneDiamond = true;
                         $scope.showAfterDiscountKone = true;
                     }
                 }
 
                 if ($scope.ShoppingCart[i].id == 2) {
-                    $scope.ironhideCount++;
-                    if ($scope.ironhideCount > 2) {
+                    if ($scope.ShoppingCart[i].count > 2) {
                         $scope.isIronhideDiamond = true;
                         $scope.showAfterDiscountIron = true;
                     }
@@ -86,10 +82,7 @@ app.controller('myCtrl', function ($scope) {
         }
 
         for (var j = 0; j < $scope.ShoppingCart.length; j++) {
-
             //conditions here
-            
-            
             if ($scope.isUserType == "Diamond") { //Is Diamond User
                  $scope.ShoppingCart[j].price = $scope.ShoppingCart[j].oriprice * 0.8;
                  if ($scope.ShoppingCart[j].id == 1) { //Kone Diamond Logic here
@@ -102,7 +95,7 @@ app.controller('myCtrl', function ($scope) {
                 if ($scope.ShoppingCart[j].id == 2) { //Ironhide Diamond Logic here
                     if ($scope.isIronhideDiamond) {
                         $scope.ironhidePayCount = Math.ceil($scope.ShoppingCart[j].count / 3 * 2); //Get a 3 for 2 deal
-                         console.log($scope.ironhidePayCount);
+                         //console.log($scope.ironhidePayCount);
                      }
                      if ($scope.ironhidePayCount > 0)
                          $scope.totalIronhidePrice = $scope.totalIronhidePrice + $scope.ironhidePayCount * $scope.ShoppingCart[j].price;
@@ -111,7 +104,8 @@ app.controller('myCtrl', function ($scope) {
                  }
 
                  $scope.totalPrice = $scope.totalKonePrice + $scope.totalIronhidePrice;
-             }
+            }
+
              else { //Is Associate User
                  $scope.ShoppingCart[j].price = $scope.ShoppingCart[j].oriprice * 0.95;
                  $scope.totalPrice = $scope.totalPrice + $scope.ShoppingCart[j].count * $scope.ShoppingCart[j].price;
@@ -127,8 +121,6 @@ app.controller('myCtrl', function ($scope) {
         $scope.ShoppingCart = [];
         $scope.showAfterDiscountKone = false;
         $scope.showAfterDiscountIron = false;
-        $scope.koneCount = 0;
-        $scope.ironhideCount = 0;
         $scope.ironhidePayCount = 0;
 
         //reset value
